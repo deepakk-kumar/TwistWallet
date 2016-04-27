@@ -7,18 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.TwistWallet.service.LoginSignupService;
+import com.TwistWallet.service.UserService;
 import com.TwistWallet.utils.TwistWalletRequest;
 import com.TwistWallet.utils.TwistWalletResponse;
 
 @Controller
-public class LoginController {
+public class UserController {
 
 	@Autowired
-	LoginSignupService loginSignupImpl;
+	UserService userServiceImpl;
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public @ResponseBody TwistWalletResponse validate(@RequestBody TwistWalletRequest request ){
-		return loginSignupImpl.login(request); 
+	@RequestMapping(value="/createUser",method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	public @ResponseBody TwistWalletResponse createUser(@RequestBody TwistWalletRequest request){
+				TwistWalletResponse res = userServiceImpl.createUser(request);
+				return  res;
 	}
+	
 }

@@ -5,7 +5,9 @@
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	
 	<display-name>Spring Hibernate JPA Hello World Application</display-name>
-	
+	<welcome-file-list>
+	    <welcome-file>index.html</welcome-file>
+	</welcome-file-list>
 	<!-- Configuration file for the root application context -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

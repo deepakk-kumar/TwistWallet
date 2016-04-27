@@ -1,4 +1,4 @@
 App.controller("globalcontroller", function($scope,$http) {
-alert("f")
+	console.log("global controller")
 });
 

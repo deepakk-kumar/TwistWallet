@@ -1,7 +1,5 @@
-/*App.controller('loginController', function($scope) {*/
 	App.controller("loginController", function($scope,$http) {
-	alert("login")
-	/*$scope.login = function(){
+	$scope.login = function(){
 		$scope.email = $("#email").val();
 		$scope.password = $("#password").val();
 
@@ -21,8 +19,16 @@
 		    data: $scope.request
 		}).then(function successCallback(response) {
 			console.log(response);
+			if(response.data.resultCode==1){
+				alert("success")
+			}else{
+				alert("failure")
+			}
 		}, function errorCallback(response) {
 			alert("error")
 		});
-	
-	}*/});
+		
+	}});
+var signUp = function (){
+	window.location.href=("http://localhost:8080/TwistWallet/#/signUp")
+}

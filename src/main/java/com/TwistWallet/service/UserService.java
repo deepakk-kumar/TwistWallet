@@ -5,4 +5,5 @@ import com.TwistWallet.utils.TwistWalletResponse;
 
 public interface UserService {
 	public TwistWalletResponse createUser(TwistWalletRequest request);
+	public TwistWalletResponse sendMail(TwistWalletRequest request);
 }

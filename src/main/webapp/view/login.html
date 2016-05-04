@@ -1,7 +1,7 @@
 <html >
 <body>
  <!-- <link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'> -->
-<div class="login">
+<div class="login" ng-controller="loginController">
   <div class="login-header">
     <h1>Login</h1>
   </div>
@@ -16,7 +16,7 @@
     <br>
     <a class="sign-up" href='javascript:void()' onClick='signUp()'>Sign Up! </a>
     <br>
-    <h6 class="no-access">Can't access your account?</h6>
+    <h6 class="no-access" ng-click="gotoReset()">Can't access your account?</h6>
   </div>
 </div>
 <div class="error-page">

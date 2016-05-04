@@ -9,12 +9,7 @@ App.controller('signupController', function($scope,$http,$location) {
 	
 	
 	$scope.signUp = function(){
-		console.log("fiest "+$scope.firstName)
-		console.log($("#firstName").val())
-		console.log($("#email").val())
-		console.log($scope.password)
-		console.log(mob)
-	$scope.url = "http://localhost:8080/TwistWallet/createUser";
+	$scope.url = p.URL+"/createUser";
 	$scope.request = {
 			"user": {
 				"firstName":$("#firstName").val(),// $scope.firstName,

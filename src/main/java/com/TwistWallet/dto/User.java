@@ -16,6 +16,13 @@ public class User implements Serializable{
 	private String password;
 	private boolean admin;
 	private String mobileNumber;
+	private Boolean newUser;
+	public Boolean getNewUser() {
+		return newUser;
+	}
+	public void setNewUser(Boolean newUser) {
+		this.newUser = newUser;
+	}
 	public int getUserId() {
 		return userId;
 	}

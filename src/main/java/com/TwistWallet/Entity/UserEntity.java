@@ -6,12 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name="user")
-@NamedQuery(name="user.findByEmailAndPassword",query="select u from UserEntity u where u.emailAddress = :emailAddress AND u.password = :password")
+@NamedQueries({
+@NamedQuery(name="user.findByEmailAndPassword",query="select u from UserEntity u where u.emailAddress = :emailAddress AND u.password = :password"),
+@NamedQuery(name="user.findByUserId",query="select u from UserEntity u where u.userId=:uId")
+})
 public class UserEntity {
 
 	@Id
@@ -38,8 +45,21 @@ public class UserEntity {
 	private Boolean admin;
 	
 	@Column(name="password")
+	@Cascade(CascadeType.MERGE)
 	@Basic(optional = false)
 	private String password;
+	
+	@Column(name="newUser")
+	//@Basic(optional = false)
+	private Boolean newUser;
+
+	public Boolean getNewUser() {
+		return newUser;
+	}
+
+	public void setNewUser(Boolean newUser) {
+		this.newUser = newUser;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -101,7 +121,7 @@ public class UserEntity {
 	@Override
 	public String toString(){
 		return ("id "+userId +"firstName "+firstName +"lastName "+lastName
-				+"email "+emailAddress +"mob "+mobileNumber);
+				+"email "+emailAddress +"mob "+mobileNumber+"password "+password+"newUser "+newUser);
 		
 	}
 }

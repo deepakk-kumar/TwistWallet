@@ -55,4 +55,28 @@ public class BaseDaoImpl<BaseDomain> implements BaseDao<BaseDomain> {
 		return list;
 	}
 
+	@Override
+	public BaseDomain findWithNamedQueries(String namedQuery, Class<? extends BaseDomain> domain,
+			Map<String, ?> params) {
+		TypedQuery<? extends BaseDomain> query = (TypedQuery<? extends BaseDomain>) manager
+				.createNamedQuery(namedQuery, domain);
+		if(params != null)
+		{
+			for(String each: params.keySet())
+			{
+				query.setParameter(each, (Object)params.get(each));
+			}
+		}
+		
+		return query.getSingleResult();
+	}
+
+	@Override
+	public void update(BaseDomain domain) {
+		manager.merge(domain);
+		
+	}
+
+	
+
 }

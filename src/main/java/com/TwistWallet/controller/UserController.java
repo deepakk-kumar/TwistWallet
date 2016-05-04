@@ -22,5 +22,9 @@ public class UserController {
 				TwistWalletResponse res = userServiceImpl.createUser(request);
 				return  res;
 	}
-	
+	@RequestMapping(value="/sendMail",method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	public @ResponseBody TwistWalletResponse sendMail(@RequestBody TwistWalletRequest request){
+				TwistWalletResponse res = userServiceImpl.sendMail(request);
+				return  res;
+	}
 }

@@ -1,5 +1,9 @@
 package com.TwistWallet.utils;
 
+import java.util.List;
+
+import com.TwistWallet.dto.Product;
+import com.TwistWallet.dto.Seller;
 import com.TwistWallet.dto.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,6 +13,21 @@ public class TwistWalletResponse {
 	private String resultDesc;
 	private int resultCode;
 	public User user;
+	private Seller seller;
+	private List<Product> product;
+	public Seller getSeller() {
+		return seller;
+	}
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
+	
+	public List<Product> getProduct() {
+		return product;
+	}
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
 	public String getResultDesc() {
 		return resultDesc;
 	}

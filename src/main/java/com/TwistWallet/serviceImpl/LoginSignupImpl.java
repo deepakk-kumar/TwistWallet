@@ -28,6 +28,9 @@ public class LoginSignupImpl implements LoginSignupService {
 		TwistWalletResponse twistWalletResponse = new TwistWalletResponse();
 		String email = request.getUser().getEmailAddress();
 		String password = request.getUser().getPassword();
+		if(email == null || password == null || email.equals(null)){
+			return null;
+		}
 		Map<String, Object> queryParams = new HashMap<>(2);
 		queryParams.put("emailAddress", email);
 		queryParams.put("password", password);

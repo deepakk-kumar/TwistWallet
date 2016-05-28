@@ -8,8 +8,14 @@ App.config(['$routeProvider', function($routeProvider) {
     }).when("/resetPassword", {
     	templateUrl : "view/resetPassword.html",
     	controller: "resetController"
+    }).when("/confirmDetails", {
+    	templateUrl : "view/confirmDetails.html",
+    	controller: "placeOrderController"
+    }).when("/landingPage", {
+    	templateUrl : "view/landingPage.html",
+    	//controller: "globalcontroller"
     }).otherwise({
-        redirectTo: '/login'
+        redirectTo: '/landingPage'
     });
 
 }]);

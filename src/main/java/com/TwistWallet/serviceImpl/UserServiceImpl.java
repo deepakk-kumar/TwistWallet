@@ -5,8 +5,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.TwistWallet.Entity.LoginEntity;
 import com.TwistWallet.Entity.UserEntity;
 import com.TwistWallet.dao.BaseDao;
+import com.TwistWallet.dto.Login;
 import com.TwistWallet.dto.User;
 import com.TwistWallet.service.UserService;
 import com.TwistWallet.utils.Response;
@@ -26,18 +28,24 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public TwistWalletResponse createUser(TwistWalletRequest request) {
 		UserEntity userEntity = new UserEntity();
+		LoginEntity loginEntity = new LoginEntity();
 		userEntity.setEmailAddress(request.getUser().getEmailAddress());
 		userEntity.setFirstName(request.getUser().getFirstName());
 		userEntity.setLastName(request.getUser().getLastName());
 		userEntity.setMobileNumber(request.getUser().getMobileNumber());
-		//userEntity.setPassword(request.getUser().getPassword());
-		String genPassword = TwistWalletUtils.getPassword(request.getUser().getEmailAddress());
-		userEntity.setPassword(genPassword);
-		request.getUser().setPassword(genPassword);
-		userEntity.setAdmin(request.getUser().isAdmin());
 		userEntity.setNewUser(true);
+		//userEntity.setPassword(request.getUser().getPassword());
+		userEntity.setAdmin(request.getUser().isAdmin());
+		String genPassword = TwistWalletUtils.getPassword(request.getUser().getEmailAddress());
 		userEntity = (UserEntity) baseDaoImpl.save(userEntity);
 		
+		loginEntity.setPassword(genPassword);
+		Login login = new Login();
+		login.setPassword(genPassword);
+		request.setLogin(login);
+		
+		loginEntity.setUser(userEntity);
+		loginEntity = (LoginEntity) baseDaoImpl.save(loginEntity);
 		TwistWalletResponse response = new TwistWalletResponse();
 		
 		User user = new User();
@@ -46,7 +54,7 @@ public class UserServiceImpl implements UserService{
 		user.setFirstName(userEntity.getFirstName());
 		user.setLastName(userEntity.getLastName());
 		user.setAdmin(userEntity.getAdmin());
-		user.setNewUser(userEntity.getNewUser());
+		//user.setNewUser(userEntity.getNewUser());
 		response.setUser(user);
 		sendMail(request);
 		response.setResultCode(Response.SUCCESS.getResultCode());
@@ -59,7 +67,7 @@ public class UserServiceImpl implements UserService{
 		SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(request.getUser().getEmailAddress());
         email.setSubject("Twist-wallet");
-        email.setText("welcome to twist-wallet. You have sucessfully registered with TwistWallet. Your password is :- "+request.getUser().getPassword());
+        email.setText("welcome to twist-wallet. You have sucessfully registered with TwistWallet. Your password is :- "+request.getLogin().getPassword());
         email.setFrom("No-reply");
         // sends the e-mail
         mailSender.send(email);

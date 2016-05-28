@@ -1,0 +1,48 @@
+<html >
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+    window.localStorage.clear();
+  }
+</script>
+<head>      
+   <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'> 
+         <link rel="stylesheet" href="css/style.css"> 
+    </head> 
+<body ng-controller="globalcontroller">
+<input type="button" value="Login" id="loginPage" class="" ng-click="loginPage()">
+<input type="button" value="Sign Up" id="signUpPage" class="" ng-click="signUpPage()">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+<meta name="google-signin-client_id" content="339632822935-0fcub7dg2lsjh810ul1ra84j59d9au7b.apps.googleusercontent.com">
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<a href="#" onclick="signOut();">Sign out</a>
+<div class="login" >
+  <div class="login-header">
+    <h1>Welcome</h1>
+  </div>
+  <div class="login-form ">
+  <div class="">
+    <img src="press.jpg"  />
+    </div><div>
+     <table>
+    <tbody>
+    <tr ng-repeat="data in productData">
+    <td ng-click="buy(data.price,data.productName,data.productQuantity)">Name :{{data.productName}} price : {{data.price}} Quantity : {{data.productQuantity}}</td>
+    <td> <input type="button" value="Buy" id="loginButton" class="" ng-click="buy(data.price,data.productName,data.productQuantity,data.seller.sellerId)"></td>
+    </tr>
+    </tbody>
+    </table>   
+    </div>
+     <input type="button" value="Buy" id="loginButton" class="" ng-click="buy()">
+  </div>
+</div>
+<div class="error-page">
+  <div class="try-again">Error: Try again?</div>
+</div>
+
+</body>
+</html>

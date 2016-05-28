@@ -1,4 +1,4 @@
-	App.controller("resetController", function($scope,$http) {
+	App.controller("resetController", function($scope,$http,$location) {
 	$scope.reset = function(){
 		
 		$scope.password = $("#password").val();
@@ -6,8 +6,10 @@
 		$scope.request = 
 		{
 			"user": {
-				"password": $scope.password,
 				"userId" :  window.localStorage.getItem("userId")
+			},
+			"login": {
+				"password": $scope.password
 			}
 		}
 
@@ -20,7 +22,7 @@
 		}).then(function successCallback(response) {
 			console.log(response);
 			if(response.data.resultCode==1){
-				alert("Password changed successfully")
+				$location.path("/landingPage");
 			}else{
 				alert("failure")
 			}
@@ -28,6 +30,6 @@
 			alert("error")
 		});
 		
-	}
+	}   
 	
 	});

@@ -12,5 +12,5 @@ public interface BaseDao<BaseDomain> {
 	public void update(BaseDomain domain);
 	public BaseDomain findWithNamedQueries(String namedQuery,Class<? extends BaseDomain> domain ,Map<String, ?> params);
 	public List<? extends BaseDomain> findWithNamedQuery(String namedQuery,  Class<? extends BaseDomain> domain,Map<String, ?> params);
-	
+
 }

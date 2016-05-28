@@ -6,7 +6,9 @@
 		$scope.request = 
 		{
 			"user": {
-				"emailAddress": $scope.email,
+				"emailAddress": $scope.email
+			},
+			"login": {
 				"password": $scope.password
 			}
 		}
@@ -21,12 +23,17 @@
 			console.log(response);
 			if(response.data.resultCode==1){
 				console.log("userId "+response.data.user.userId);
-				window.localStorage.setItem("u" +
-						"serId", response.data.user.userId);
+				window.localStorage.setItem("userId", response.data.user.userId);
+				window.localStorage.setItem("isLogin",true);
+				loginUser = response.data.user;
+				window.localStorage.setItem("loginUserArr", loginUser);
+				//window.localStorage.setItem("loginUserArr", JSON.stringify(loginUser));
 				if(response.data.user.newUser == true){
-					$location.path("/resetPassword")
-				}
-				alert("success")
+					alert("new user");
+					$location.path("/resetPassword");
+				}else{
+				$location.path("/landingPage")
+				} 
 			}else{
 				alert("failure")
 			}

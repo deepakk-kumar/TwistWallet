@@ -13,9 +13,11 @@ public class User implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
-	private String password;
+	//private String password;
 	private boolean admin;
 	private String mobileNumber;
+	private String address;
+	private int postelCode;
 	private Boolean newUser;
 	public Boolean getNewUser() {
 		return newUser;
@@ -23,6 +25,21 @@ public class User implements Serializable{
 	public void setNewUser(Boolean newUser) {
 		this.newUser = newUser;
 	}
+	
+	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public int getPostelCode() {
+		return postelCode;
+	}
+	public void setPostelCode(int postelCode) {
+		this.postelCode = postelCode;
+	}
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -46,12 +63,6 @@ public class User implements Serializable{
 	}
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public boolean isAdmin() {
 		return admin;

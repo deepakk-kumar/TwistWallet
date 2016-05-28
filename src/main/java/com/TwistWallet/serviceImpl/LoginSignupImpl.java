@@ -1,15 +1,16 @@
 package com.TwistWallet.serviceImpl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.TwistWallet.Entity.LoginEntity;
 import com.TwistWallet.Entity.UserEntity;
 import com.TwistWallet.dao.BaseDao;
+import com.TwistWallet.dto.Login;
 import com.TwistWallet.dto.User;
 import com.TwistWallet.service.LoginSignupService;
 import com.TwistWallet.utils.Response;
@@ -27,7 +28,7 @@ public class LoginSignupImpl implements LoginSignupService {
 	public TwistWalletResponse login(TwistWalletRequest request) {
 		TwistWalletResponse twistWalletResponse = new TwistWalletResponse();
 		String email = request.getUser().getEmailAddress();
-		String password = request.getUser().getPassword();
+		String password = request.getLogin().getPassword();
 		if(email == null || password == null || email.equals(null)){
 			return null;
 		}
@@ -41,8 +42,11 @@ public class LoginSignupImpl implements LoginSignupService {
 			user.setEmailAddress(userEntityList.getEmailAddress());
 			user.setNewUser(userEntityList.getNewUser());
 			user.setFirstName(userEntityList.getFirstName());
-			user.setLastName(userEntityList.getFirstName());
+			user.setLastName(userEntityList.getLastName());
 			user.setAdmin(userEntityList.getAdmin());
+			user.setMobileNumber(userEntityList.getMobileNumber());
+			Login login = new  Login();
+			//login.
 		twistWalletResponse.setUser(user);
 		twistWalletResponse.setResultCode(Response.SUCCESS.getResultCode());
 		twistWalletResponse.setResultDesc(Response.SUCCESS.getDesc());
@@ -56,14 +60,16 @@ public class LoginSignupImpl implements LoginSignupService {
 	@Override
 	public TwistWalletResponse reset(TwistWalletRequest request) {
 		TwistWalletResponse twistWalletResponse = new TwistWalletResponse();
-		String newPassword = request.getUser().getPassword();
+		String newPassword = request.getLogin().getPassword();
 		int userId = request.getUser().getUserId();
 		Map<String, Object> queryParams = new HashMap<>(2);
 		queryParams.put("uId", userId);
-		UserEntity userEntity = (UserEntity) baseDaoImpl.findWithNamedQueries("user.findByUserId", UserEntity.class, queryParams);
-		if(userEntity != null){
-		userEntity.setPassword(newPassword);
-		userEntity.setNewUser(false);
+		//
+		LoginEntity loginEntity = (LoginEntity) baseDaoImpl.findWithNamedQueries("login.findByUserId", LoginEntity.class, queryParams);
+		if(loginEntity != null){
+			loginEntity.setPassword(newPassword);
+			UserEntity userEntity = (UserEntity) baseDaoImpl.findWithNamedQueries("user.findByUserId", UserEntity.class, queryParams);
+			userEntity.setNewUser(false);
 		twistWalletResponse.setResultCode(Response.SUCCESS.getResultCode());
 		twistWalletResponse.setResultDesc(Response.SUCCESS.getDesc());
 		}else{

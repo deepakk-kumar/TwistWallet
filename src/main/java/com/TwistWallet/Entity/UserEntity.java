@@ -16,8 +16,8 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name="user")
 @NamedQueries({
-@NamedQuery(name="user.findByEmailAndPassword",query="select u from UserEntity u where u.emailAddress = :emailAddress AND u.password = :password"),
-@NamedQuery(name="user.findByUserId",query="select u from UserEntity u where u.userId=:uId")
+	@NamedQuery(name="user.findByEmailAndPassword",query="select u from UserEntity u ,LoginEntity l where u.emailAddress = :emailAddress AND l.password = :password"),
+	@NamedQuery(name="user.findByUserId",query="select u from UserEntity u where u.userId=:uId")
 })
 public class UserEntity {
 
@@ -41,13 +41,11 @@ public class UserEntity {
 	@Column(name="mobileNumber")
 	private String mobileNumber;
 	
-	@Column(name="isAdmin")
-	private Boolean admin;
+	@Column(name="address")
+	private String address;
 	
-	@Column(name="password")
-	@Cascade(CascadeType.MERGE)
-	@Basic(optional = false)
-	private String password;
+	@Column(name="postelCode")
+	private int postelCode;
 	
 	@Column(name="newUser")
 	//@Basic(optional = false)
@@ -60,6 +58,25 @@ public class UserEntity {
 	public void setNewUser(Boolean newUser) {
 		this.newUser = newUser;
 	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getPostelCode() {
+		return postelCode;
+	}
+
+	public void setPostelCode(int postelCode) {
+		this.postelCode = postelCode;
+	}
+
+	@Column(name="isAdmin")
+	private Boolean admin;
 
 	public int getUserId() {
 		return userId;
@@ -101,11 +118,6 @@ public class UserEntity {
 		this.mobileNumber = mobileNumber;
 	}
 
-	
-	public String getPassword() {
-		return password;
-	}
-
 	public Boolean getAdmin() {
 		return admin;
 	}
@@ -113,15 +125,11 @@ public class UserEntity {
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	
 	@Override
 	public String toString(){
 		return ("id "+userId +"firstName "+firstName +"lastName "+lastName
-				+"email "+emailAddress +"mob "+mobileNumber+"password "+password+"newUser "+newUser);
+				+"email "+emailAddress +"mob "+mobileNumber);
 		
 	}
 }

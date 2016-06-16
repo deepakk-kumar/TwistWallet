@@ -45,8 +45,14 @@ public class LoginSignupImpl implements LoginSignupService {
 			user.setLastName(userEntityList.getLastName());
 			user.setAdmin(userEntityList.getAdmin());
 			user.setMobileNumber(userEntityList.getMobileNumber());
+			
+			//getting Login id
+			queryParams.clear();
+			queryParams.put("uId", userEntityList.getUserId());
+			LoginEntity loginEntity = (LoginEntity) baseDaoImpl.findWithNamedQueries("login.findByUserId", LoginEntity.class, queryParams);
 			Login login = new  Login();
-			//login.
+			login.setLoginId(loginEntity.getLoginId());
+		twistWalletResponse.setLogin(login);
 		twistWalletResponse.setUser(user);
 		twistWalletResponse.setResultCode(Response.SUCCESS.getResultCode());
 		twistWalletResponse.setResultDesc(Response.SUCCESS.getDesc());

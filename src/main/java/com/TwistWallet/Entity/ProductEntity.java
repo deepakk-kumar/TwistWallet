@@ -7,13 +7,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="product")
-@NamedQuery(name="product.findAll",query="select p from ProductEntity p")
+@NamedQueries({
+@NamedQuery(name="product.findAll",query="select p from ProductEntity p"),
+@NamedQuery(name="product.findByProductId",query="select p from ProductEntity p where p.productId=:productId")
+})
 public class ProductEntity {
 
 	@Id

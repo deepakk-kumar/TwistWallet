@@ -25,6 +25,9 @@
 				console.log("userId "+response.data.user.userId);
 				window.localStorage.setItem("userId", response.data.user.userId);
 				window.localStorage.setItem("isLogin",true);
+				window.localStorage.setItem("loginId",response.data.login.loginId);
+				window.localStorage.setItem("loginUserName",response.data.user.firstName);
+				console.log("loginUserName "+response.data.user.firstName);
 				loginUser = response.data.user;
 				window.localStorage.setItem("loginUserArr", loginUser);
 				//window.localStorage.setItem("loginUserArr", JSON.stringify(loginUser));
@@ -33,6 +36,7 @@
 					$location.path("/resetPassword");
 				}else{
 				$location.path("/landingPage")
+				//$location.reload();
 				} 
 			}else{
 				alert("failure")

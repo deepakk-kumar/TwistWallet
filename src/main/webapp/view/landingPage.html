@@ -1,26 +1,17 @@
 <html >
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-    window.localStorage.clear();
-  }
-</script>
 <head>      
-   <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'> 
-         <link rel="stylesheet" href="css/style.css"> 
-    </head> 
+<!-- <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'> --> 
+<link rel="stylesheet" href="css/style.css"> 
+<link rel="stylesheet" href="css/application.css"> 
+<link rel="stylesheet" href="css/bootstrap.min.css"> 
+<link rel="stylesheet" href="css/bootstrap-theme.min.css"> 
+<link rel="stylesheet" href="css/fonts.css"> 
+<link rel="stylesheet" href="css/style.css"> 
+</head>  
 <body ng-controller="globalcontroller">
-<input type="button" value="Login" id="loginPage" class="" ng-click="loginPage()">
-<input type="button" value="Sign Up" id="signUpPage" class="" ng-click="signUpPage()">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
-<meta name="google-signin-client_id" content="339632822935-0fcub7dg2lsjh810ul1ra84j59d9au7b.apps.googleusercontent.com">
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-<a href="#" onclick="signOut();">Sign out</a>
-<div class="login" >
+<!-- <input type="button" value="Login" id="loginPage" class="" ng-click="loginPage()">
+<input type="button" value="Sign Up" id="signUpPage" class="" ng-click="signUpPage()"> -->
+<!-- <div class="login" >
   <div class="login-header">
     <h1>Welcome</h1>
   </div>
@@ -39,10 +30,138 @@
     </div>
      <input type="button" value="Buy" id="loginButton" class="" ng-click="buy()">
   </div>
+</div> -->
+		<div  class="height-100">
+
+	<header class="header">
+	<div class="pad-left40 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	  <div>
+	     <span></span>
+	     <span></span>
+	     <span></span>
+	  </div>
+	</div>
+	<div class=" pad-right40">   <!-- col-lg-6 col-md-6 col-sm-6 col-xs-12 -->
+	  <div class="list-nav no-padding">
+	    <ul class="list-inline topAdminlist">
+	    <!-- <li class="tableCell" ng-show="true"><a href="#profile"><span class="inlineNavigationSpan">SignIn / Reg</span></a></li> -->
+	      <li class="tableCell" ng-show=!{{isLogin}}><span class="inlineNavigationSpan" ng-click="loginPage()">SignIn / Reg</span></li>
+	      <li class="tableCell" ng-show="{{isLogin}}"><span class="inlineNavigationSpanImg">{{loginUserName}}</span></li>
+	      <li class="tableCell minwid30" id="openDropDown" ng-show="{{isLogin}}"><span class="customCaret"></span></li>
+	    </ul>
+	  </div>
+	   <div class="list-nav no-padding">
+	    <ul class="list-inline topAdminlist">
+	      <li class="tableCell"><a href="#profile"><span class="customHeadings">Home</span></a></li>
+	      <li class="tableCell"><a href="#profile"><span class="customHeadings">Gallery</span></a></li>
+	      <li class="tableCell"><a href="#profile"><span class="customHeadings">Products</span></a></li>
+	      <li class="tableCell"><a href="#profile"><span class="customHeadings">About us</span></a></li>
+	      <li class="tableCell"><a href="#profile"><span class="customHeadings">Cart</span></a></li>
+	      <li  class="tableCell minwid30" id="openDropDownForCart" ><span class="customCaret" ng-click="getCart()"></span></li>   
+	    </ul>
+	  </div>
+	  <div class="mobile-navigation" id="mobile-navigation"> <span></span> <span></span> <span></span> </div>
+	</div>
+	</header>
+	
+	<div class="dropDownCustom">
+	<ul>
+		<li><a href="#profile"><span class="glyphicon glyphicon-pencil editIcon"></span> <span> EditProfile</span></a></li>
+		<li><a href="javascript:void()" onclick="signout()"><img src="images/unlock.png" class="vertical-align-middle signOutimage" /><span >signOut</span></a></li>
+	</ul>
 </div>
-<div class="error-page">
-  <div class="try-again">Error: Try again?</div>
+
+<div class="dropDownCustomForCart">
+	<ul>
+		 <li><a href="#profile"><span class="glyphicon glyphicon-pencil editIcon"></span> <span> EditProfile</span></a></li>
+	<table class="table">
+	<thead>
+	<tr>
+	<td>Item</td>
+	<td>Price</td>
+	<td>Quantity</td>
+	<td>Remove</td>
+	</tr>
+	</thead>
+	
+	  <tbody>
+         <tr ng-repeat="data in cartListData"> 
+		  <td>{{data.product.productName}}</td>
+          <td>{{data.product.price}}</td>
+          <td>{{data.quantity}}</td>  
+          <td>delete</td>
+          </tr>
+          </tbody>
+	</table>	
+	</ul>
 </div>
+
+
+
+
+<section> 
+ <div class="mainSlider sliderPosition">
+        </div> 
+	   <!--      <div class="pmSubSlider" id="admintool">
+	       		<div class="create-user-btn-wrraper text-center">
+	       			<button class="create-user-btn"   id="{{createNewUser}}" ng-click='openMethod()'>{{btnTitle}}</button>
+	       		</div>
+	       		<div class="sidebar-navigation">
+				    <ul class="no-margin-padding">
+				      <li id="userlist" class="nouser" ng-class="{activenavigationbar: userList}"><a href="#userlist" ><span translate="Users"></span></a></li>
+				      <li id="grouplist" class="nogroup" ng-class="{activenavigationbar: groupList}"><a href="#groups"><span translate="Groups"></span> </a></li>
+	
+				    </ul>
+				</div>
+	        </div>
+	         -->
+       
+<section class="content-wrraper bodycontentSearchSticky">
+
+<div>
+  <div class="table-responsive mb-300">
+  <input type="hidden"   id="userrecord" value="" />
+    <table class="table">
+      <thead>
+        <tr>
+          <!-- <th ng-click="reversedata = !reversedata;filterdata(reversedata,'userProfileInfo.fullName')"  translate="Name" ng-class="{ascendingbg : ascending, descendingbg : descending}"></th>
+          <th ng-click="reversedata = !reversedata;filterdata(reversedata,'userProfileInfo.emailAddress')" translate="Email"></th>
+          <th ng-click="reversedata = !reversedata;filterdata(reversedata,'statusType.statusName')" translate="Status"></th>
+          <th class="actionIconHeader" translate="Actions"></th> -->
+          <th   ng-class="{ascendingbg : ascending, descendingbg : descending}">Product</th>
+          <th   ng-class="{ascendingbg : ascending, descendingbg : descending}">Price</th>
+          <th   ng-class="{ascendingbg : ascending, descendingbg : descending}">Quantity</th>
+          <th class="actionIconHeader">Seller</th>
+        </tr>	
+      </thead>
+      <tbody>
+ 
+         <tr ng-repeat="data in productData"> 
+        
+          <td ng-click="getEdituser(data)">{{data.productName}}</td>
+          <td>{{data.price}}</td>
+          <td>{{data.productQuantity}}</td>           
+     <td>{{data.seller.sellerName}}</td>
+     <td ng-click="addToCart(data)">Add To Cart</td>
+        </tr>
+        <tr>
+    		 <td colspan="4"  ng-class="{displayNone : lowRecords}">
+    		 	<div class="paginationDiv" id="paginationDivPrev">
+    		 	<button type="button" id="prev" name="prev" translate="Prev"  ng-click="prev('prev')"></button>
+    		 	</div>
+    		 	<div class="paginationDiv" id="numberName"></div>
+    		 	<div class="paginationDiv" id="paginationDivNext">
+    		 	<button type="button" id="next" name="next" translate="Next"  ng-click="next('next')"></button>
+    		 	</div>
+    		 </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+ </section> 
+</div> 
 
 </body>
 </html>
+ 

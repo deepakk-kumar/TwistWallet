@@ -2,6 +2,8 @@ package com.TwistWallet.utils;
 
 import java.util.List;
 
+import com.TwistWallet.dto.Cart;
+import com.TwistWallet.dto.Login;
 import com.TwistWallet.dto.Product;
 import com.TwistWallet.dto.Seller;
 import com.TwistWallet.dto.User;
@@ -14,7 +16,24 @@ public class TwistWalletResponse {
 	private int resultCode;
 	public User user;
 	private Seller seller;
+	private Cart cart;
 	private List<Product> product;
+	private List<Cart> cartList;
+	private Login login;
+	
+	
+	public Login getLogin() {
+		return login;
+	}
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+	public List<Cart> getCartList() {
+		return cartList;
+	}
+	public void setCartList(List<Cart> cartList) {
+		this.cartList = cartList;
+	}
 	public Seller getSeller() {
 		return seller;
 	}
@@ -22,6 +41,12 @@ public class TwistWalletResponse {
 		this.seller = seller;
 	}
 	
+	public Cart getCart() {
+		return cart;
+	}
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 	public List<Product> getProduct() {
 		return product;
 	}

@@ -1,6 +1,9 @@
 var loginUser = [];
 
 App.controller("globalcontroller", function($scope,$http,$location) {
+	$scope.isLogin=window.localStorage.getItem("isLogin");
+	//console.log("$scope.isLogin:-"+$scope.isLogin);
+	$scope.loginUserName=window.localStorage.getItem("loginUserName");
 	console.log("global controller")
 	$scope.url =   p.URL+"/getAllProduct";
 	$http({
@@ -38,9 +41,70 @@ App.controller("globalcontroller", function($scope,$http,$location) {
 		console.log("loginPage redirect")
 		$location.path("/login");
 	} 
+	
 	$scope.signUpPage = function(){
 		console.log("signUpPage redirect")
 		$location.path("/signUp");
+	}
+	
+	$scope.getCart = function(){
+
+		$scope.request = 
+			{	
+					"login": {
+						"loginId": window.localStorage.getItem("loginId")
+					}
+			}
+		$scope.url =   p.URL+"/getCart";
+		$http({
+		    method: 'POST',
+		    url: $scope.url,
+		    data: $scope.request
+		}).then(function successCallback(response) {
+			console.log("cartList"+response.data.cartList);
+			if(response.data.resultCode==1){
+				$scope.cartListData = response.data.cartList;
+			}else{
+				alert("failure")
+			}
+		}, function errorCallback(response) {
+			alert("error")
+		});
+		
+	}
+	$scope.addToCart= function(data){
+		
+		if($scope.isLogin==null || $scope.isLogin==false){
+			$location.path("/login");
+		}
+	
+		$scope.request = 
+		{
+				"cart": {
+					"login": {
+						"loginId": window.localStorage.getItem("loginId")
+					},
+					"product": {
+						"productId": data.productId
+					},
+					"quantity": 1
+				}
+			}
+
+	$scope.url =   p.URL+"/addToCart";
+		
+		$http({
+		    method: 'POST',
+		    url: $scope.url,
+		    data: $scope.request
+		}).then(function successCallback(response) {
+			if(response.data.resultCode==1){
+				alert("item addedd successfully");
+			}
+		}, function errorCallback(response) {
+			alert("error")
+		});
+		
 	}
 });
 
@@ -109,4 +173,37 @@ App.controller("placeOrderController", function($scope,$http,$location) {
 		});
 		
 	}
+});
+
+var signout=function(){
+	alert("signOut")
+	window.localStorage.clear();
+	window.location.reload();
+}
+
+var openFlag = true;
+$(document).on('click', '#openDropDown', function(event) {
+	 event.stopPropagation();
+	 if(openFlag){
+		 openFlag = false;
+		 $('.dropDownCustom').show();
+	 }
+	 else{
+		 openFlag = true;
+		 $('.dropDownCustom').hide();
+	 }
+});
+
+
+var openFlagForCart = true;
+$(document).on('click', '#openDropDownForCart', function(event) {
+	 event.stopPropagation();
+	 if(openFlagForCart){
+		 openFlagForCart = false;
+		 $('.dropDownCustomForCart').show();
+	 }
+	 else{
+		 openFlagForCart = true;
+		 $('.dropDownCustomForCart').hide();
+	 }
 });

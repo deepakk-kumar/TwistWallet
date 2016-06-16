@@ -1,7 +1,9 @@
 package com.TwistWallet.utils;
 
 import java.io.Serializable;
+import java.util.List;
 
+import com.TwistWallet.dto.Cart;
 import com.TwistWallet.dto.Login;
 import com.TwistWallet.dto.OrderDetails;
 import com.TwistWallet.dto.Product;
@@ -30,7 +32,25 @@ public class TwistWalletRequest implements Serializable{
 	private Seller seller;
 	private Product product;
 	private OrderDetails orderDetails;
+	private Cart cart;
+	private List<Cart> cartList;
 	
+	public List<Cart> getCartList() {
+		return cartList;
+	}
+
+	public void setCartList(List<Cart> cartList) {
+		this.cartList = cartList;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
 	public OrderDetails getOrderDetails() {
 		return orderDetails;
 	}

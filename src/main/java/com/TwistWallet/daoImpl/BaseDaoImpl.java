@@ -77,6 +77,12 @@ public class BaseDaoImpl<BaseDomain> implements BaseDao<BaseDomain> {
 		
 	}
 
+	@Override
+	public void remove(BaseDomain domain) {
+		// TODO Auto-generated method stub
+		manager.remove(domain);
+	}
+
 	
 
 }

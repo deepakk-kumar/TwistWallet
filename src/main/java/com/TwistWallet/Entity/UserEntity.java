@@ -17,7 +17,8 @@ import org.hibernate.annotations.CascadeType;
 @Table(name="user")
 @NamedQueries({
 	@NamedQuery(name="user.findByEmailAndPassword",query="select u from UserEntity u ,LoginEntity l where u.emailAddress = :emailAddress AND l.password = :password"),
-	@NamedQuery(name="user.findByUserId",query="select u from UserEntity u where u.userId=:uId")
+	@NamedQuery(name="user.findByUserId",query="select u from UserEntity u where u.userId=:uId"),
+	@NamedQuery(name="user.findByEmail",query="select u from UserEntity u where u.emailAddress = :emailAddress")
 })
 public class UserEntity {
 

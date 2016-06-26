@@ -26,4 +26,13 @@ public class LoginController {
 		return loginSignupImpl.reset(request); 
 	}
 	
+	@RequestMapping(value="/duplicateEmail", method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	public @ResponseBody TwistWalletResponse duplicateEmail(@RequestBody TwistWalletRequest request ){
+		return loginSignupImpl.duplicateEmail(request); 
+	}
+	
+	@RequestMapping(value="/forgotPassword", method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	public @ResponseBody TwistWalletResponse forgotPassword(@RequestBody TwistWalletRequest request ){
+		return loginSignupImpl.forgotPassword(request); 
+	}
 }

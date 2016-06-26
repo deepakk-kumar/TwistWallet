@@ -35,7 +35,7 @@ BaseDao baseDaoImpl;
 			Product product = new Product();
 			populateProductDTO(product,eachEntity);
 			productList.add(product);
-			//}
+			}
 			response.setProduct(productList);
 			response.setResultCode(Response.SUCCESS.getResultCode());
 			response.setResultDesc(Response.SUCCESS.getDesc());

@@ -46,8 +46,8 @@
 		});
 		
 	}
-	$scope.gotoReset = function(){
-		$location.path("/resetPassword")
+	$scope.gotoforgotPassword = function(){
+		$location.path("/forgotPassword")
 	}
 	
 	});

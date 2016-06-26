@@ -14,6 +14,9 @@ App.config(['$routeProvider', function($routeProvider) {
     }).when("/landingPage", {
     	templateUrl : "view/landingPage.html",
     	//controller: "globalcontroller"
+    }).when("/forgotPassword", {
+    	templateUrl : "view/forgotPassword.html",
+    	controller: "forgotPasswordController"
     }).otherwise({
         redirectTo: '/landingPage'
     });

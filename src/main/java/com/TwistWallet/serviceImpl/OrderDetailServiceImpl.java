@@ -48,11 +48,11 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 			user.setPostelCode(request.getOrderDetails().getUser().getPostelCode());
 			baseDaoImpl.update(user);
 			
-			SellerEntity sellerEntity = new SellerEntity();
-			sellerEntity.setSellerId(request.getOrderDetails().getSeller().getSellerId());
+			//SellerEntity sellerEntity = new SellerEntity();
+			//sellerEntity.setSellerId(request.getOrderDetails().getSeller().getSellerId());
 			
 			OrderDetailsEntity orderDetailsEntity = new OrderDetailsEntity();
-			orderDetailsEntity.setSeller(sellerEntity);
+			//orderDetailsEntity.setSeller(sellerEntity);
 			orderDetailsEntity.setUser(user);
 			orderDetailsEntity.setAmount(request.getOrderDetails().getAmount());
 			orderDetailsEntity.setOrderStatus("Pending");
@@ -100,6 +100,7 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 	@Override
 	public TwistWalletResponse getCart(TwistWalletRequest request) {
 		TwistWalletResponse response = new TwistWalletResponse();
+		float totalAmount=0;
 		Map<String,Object> map=new HashedMap(1);
 		map.put("loginId", request.getLogin().getLoginId());
 		List<CartEntity> cartEntityList=(List<CartEntity>)baseDaoImpl.findWithNamedQuery("cart.findByLoginId", CartEntity.class, map);
@@ -111,15 +112,19 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 			login.setLoginId(cartEntity.getLogin().getLoginId());
 			cart.setLogin(login);
 			Product product=new Product();
+			float pricePerProduct=cartEntity.getProduct().getPrice();
+			totalAmount+=pricePerProduct;
 			product.setPrice(cartEntity.getProduct().getPrice());
 			product.setProductName(cartEntity.getProduct().getProductDetail());
 			product.setProductCode(cartEntity.getProduct().getProductCode());
 			product.setProductDetail(cartEntity.getProduct().getProductDetail());
 			cart.setProduct(product);
 			cart.setQuantity(cartEntity.getQuantity());
+			cart.setCartId(cartEntity.getCartId());
 			cartList.add(cart);
 			}
 			response.setCartList(cartList);
+			response.setTotalAmount(totalAmount);
 		}
 		response.setResultCode(Response.SUCCESS.getResultCode());
 		response.setResultDesc(Response.SUCCESS.getDesc());

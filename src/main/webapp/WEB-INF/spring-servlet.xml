@@ -42,8 +42,8 @@
    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver" />
       <property name="url" value="jdbc:mysql://localhost:3306/twistwallet" />
-      <property name="username" value="root" />
-      <property name="password" value="123" />
+      <property name="username" value="${mysql.username}" />
+      <property name="password" value="${mysql.password}" />
    </bean>
    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
       <property name="entityManagerFactory" ref="entityManagerFactoryBean" />
@@ -53,8 +53,8 @@
      <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
-        <property name="username" value="rohit.chhabra610@gmail.com" />
-        <property name="password" value="Rohit@3888" />
+        <property name="username" value="${mail.username}" />
+        <property name="password" value="${mail.password}" />
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.transport.protocol">smtp</prop>
@@ -63,6 +63,8 @@
             </props>
         </property>
     </bean> 
+    
+    <context:property-placeholder location="classpath:TwistWallet.properties" />
     
     
     </beans>

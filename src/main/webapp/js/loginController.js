@@ -1,4 +1,4 @@
-	App.controller("loginController", function($scope,$http,$location) {
+	App.controller("loginController", function($scope,$http,$location,$route) {
 	$scope.login = function(){
 		$scope.email = $("#email").val();
 		$scope.password = $("#password").val();
@@ -36,7 +36,7 @@
 					$location.path("/resetPassword");
 				}else{
 				$location.path("/landingPage")
-				//$location.reload();
+				$route.reload();
 				} 
 			}else{
 				alert("failure")

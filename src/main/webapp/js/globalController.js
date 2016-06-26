@@ -1,6 +1,6 @@
 var loginUser = [];
 
-App.controller("globalcontroller", function($scope,$http,$location) {
+App.controller("globalcontroller", function($scope,$http,$location,$route) {
 	$scope.isLogin=window.localStorage.getItem("isLogin");
 	//console.log("$scope.isLogin:-"+$scope.isLogin);
 	$scope.loginUserName=window.localStorage.getItem("loginUserName");
@@ -64,6 +64,7 @@ App.controller("globalcontroller", function($scope,$http,$location) {
 			console.log("cartList"+response.data.cartList);
 			if(response.data.resultCode==1){
 				$scope.cartListData = response.data.cartList;
+				$scope.totalAmount=response.data.totalAmount;
 			}else{
 				alert("failure")
 			}
@@ -76,6 +77,7 @@ App.controller("globalcontroller", function($scope,$http,$location) {
 		
 		if($scope.isLogin==null || $scope.isLogin==false){
 			$location.path("/login");
+			return;
 		}
 	
 		$scope.request = 
@@ -106,6 +108,42 @@ App.controller("globalcontroller", function($scope,$http,$location) {
 		});
 		
 	}
+	
+	$scope.deleteFromCart=function(cartId){
+		
+		$scope.url =   p.URL+"/deleteFromCart?cartId="+cartId;
+		$http({
+		    method: 'GET',
+		    url: $scope.url,
+		}).then(function successCallback(response) {
+			//console.log(response);
+			if(response.data.resultCode==1){
+				alert("item removed successfully")
+				$route.reload();
+			}else{
+				alert("item not removed")
+			}
+		}, function errorCallback(response) {
+			alert("error")
+		});
+		
+	}
+	
+	$scope.checkOut=function(){
+		alert("check out")
+		if($scope.isLogin==null || $scope.isLogin==false){
+			$location.path("/login");
+			return;
+		}else{
+			alert("else");
+			$scope.cartListData
+			//window.localStorage.setItem("productDetails",$scope.productDetails);
+			//window.localStorage.setItem("totalAmount", $scope.totalAmount);
+			//window.localStorage.setItem("sellerId", sellerId);
+			$location.path("/confirmDetails");
+		}
+	}
+	
 });
 
 App.controller("placeOrderController", function($scope,$http,$location) {
@@ -176,7 +214,6 @@ App.controller("placeOrderController", function($scope,$http,$location) {
 });
 
 var signout=function(){
-	alert("signOut")
 	window.localStorage.clear();
 	window.location.reload();
 }
@@ -201,9 +238,11 @@ $(document).on('click', '#openDropDownForCart', function(event) {
 	 if(openFlagForCart){
 		 openFlagForCart = false;
 		 $('.dropDownCustomForCart').show();
+		 //$('.crossImage').show();
 	 }
 	 else{
 		 openFlagForCart = true;
-		 $('.dropDownCustomForCart').hide();
+		 $('.dropDownCustomForCart ').hide();
+		 //$('.crossImage').hide(); 
 	 }
 });

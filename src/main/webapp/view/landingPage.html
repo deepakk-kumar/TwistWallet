@@ -57,7 +57,7 @@
 	      <li class="tableCell"><a href="#profile"><span class="customHeadings">Products</span></a></li>
 	      <li class="tableCell"><a href="#profile"><span class="customHeadings">About us</span></a></li>
 	      <li class="tableCell"><a href="#profile"><span class="customHeadings">Cart</span></a></li>
-	      <li  class="tableCell minwid30" id="openDropDownForCart" ><span class="customCaret" ng-click="getCart()"></span></li>   
+	      <li  class="tableCell minwid30" id="openDropDownForCart" ><span class="customCaret chekoutBtn" ng-click="getCart()"></span></li>   
 	    </ul>
 	  </div>
 	  <div class="mobile-navigation" id="mobile-navigation"> <span></span> <span></span> <span></span> </div>
@@ -73,14 +73,14 @@
 
 <div class="dropDownCustomForCart">
 	<ul>
-		 <li><a href="#profile"><span class="glyphicon glyphicon-pencil editIcon"></span> <span> EditProfile</span></a></li>
+		 <li><a href="javascript:void()"><span class="glyphicon glyphicon-pencil editIcon"></span> <span> </span></a></li>
 	<table class="table">
 	<thead>
 	<tr>
 	<td>Item</td>
 	<td>Price</td>
 	<td>Quantity</td>
-	<td>Remove</td>
+	<td>  </td>
 	</tr>
 	</thead>
 	
@@ -89,7 +89,11 @@
 		  <td>{{data.product.productName}}</td>
           <td>{{data.product.price}}</td>
           <td>{{data.quantity}}</td>  
-          <td>delete</td>
+          <td ng-click="deleteFromCart(data.cartId)" class="crossImage"></td>
+          </tr>
+          <tr>
+          <td valign="bottom"><span>Total : {{totalAmount}}</span></td>
+          <td valign="bottom" ><a href="javascript:void()" ng-click="checkOut()">CheckOut</a></td>
           </tr>
           </tbody>
 	</table>	

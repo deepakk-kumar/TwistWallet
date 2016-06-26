@@ -20,6 +20,14 @@ public class TwistWalletResponse {
 	private List<Product> product;
 	private List<Cart> cartList;
 	private Login login;
+	private float totalAmount;
+	
+	public float getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(float totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 	
 	
 	public Login getLogin() {

@@ -27,9 +27,9 @@ public class OrderDetailsEntity {
 	@JoinColumn(name="userId")
 	private UserEntity user;
 	
-	@OneToOne
-	@JoinColumn(name="sellerId")
-	private SellerEntity seller;
+	//@OneToOne
+//	@JoinColumn(name="sellerId")
+	//private SellerEntity seller;
 	
 	@Column(name="status")
 	@Basic(optional = false)
@@ -58,13 +58,13 @@ public class OrderDetailsEntity {
 		this.user = user;
 	}
 
-	public SellerEntity getSeller() {
+/*	public SellerEntity getSeller() {
 		return seller;
 	}
 
 	public void setSeller(SellerEntity seller) {
 		this.seller = seller;
-	}
+	}*/
 
 	public String getOrderStatus() {
 		return orderStatus;
